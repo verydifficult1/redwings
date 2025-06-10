@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>환생 신청서</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f3f0e8;
+      padding: 40px;
+    }
+    .form-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #fff8e1;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: #5d4037;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      color: #4e342e;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #8d6e63;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #6d4c41;
+    }
+    .message {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+      color: #2e7d32;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      margin-top: 30px;
+      border-collapse: collapse;
+      background-color: #fffdf4;
+    }
+    th, td {
+      border: 1px solid #d7ccc8;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #ffe0b2;
+      color: #5d4037;
+    }
+    caption {
+      text-align: left;
+      margin-bottom: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      color: #5d4037;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>환생 신청서</h2>
+    <form onsubmit="fakeSubmit(event)">
+      <label for="name">이름을 입력하세요</label>
+      <input type="text" id="name" name="name" placeholder="예: 김환생" required>
+
+      <label for="race">원하는 종족을 적어주세요</label>
+      <input type="text" id="race" name="race" placeholder="예: 엘프, 드래곤, 인간, 요정..." required>
+
+      <button type="submit">신청하기</button>
+      <p class="message" id="successMsg">귀하의 환생 신청이 완료되었습니다. 다음 생에 만나요!</p>
+    </form>
+
+    <table id="applicantTable">
+      <caption>📜 이미 신청한 환생자 명단</caption>
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>신청 종족</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>이나래</td><td>요정</td></tr>
+        <tr><td>강철수</td><td>드래곤</td></tr>
+        <tr><td>홍자몽</td><td>하늘거북이</td></tr>
+        <tr><td>배지훈</td><td>슬라임</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function fakeSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const race = document.getElementById("race").value.trim();
+      if (name && race) {
+        addApplicant(name, race);
+        document.getElementById("successMsg").style.display = "block";
+        document.getElementById("name").value = "";
+        document.getElementById("race").value = "";
+      }
+    }
+
+    function addApplicant(name, race) {
+      const table = document.getElementById("applicantTable").getElementsByTagName('tbody')[0];
+      const newRow = table.insertRow(0);
+      const cell1 = newRow.insertCell(0);
+      const cell2 = newRow.insertCell(1);
+      cell1.textContent = name;
+      cell2.textContent = race;
+    }
+
+    // 자동 가짜 신청자 리스트
+    const fakeNames = ["박몽룡", "김무무", "이델피", "조캬르르", "최냥냥", "윤도도", "임천둥", "정세리"];
+    const fakeRaces = ["불꽃마법사", "슬라임왕", "천계 기사", "야행성 너구리", "고양이 요괴", "스켈레톤", "용의 사생아", "공허 정령"];
+
+    function addRandomApplicant() {
+      const name = fakeNames[Math.floor(Math.random() * fakeNames.length)];
+      const race = fakeRaces[Math.floor(Math.random() * fakeRaces.length)];
+      addApplicant(name, race);
+    }
+
+    // 2초마다 자동 실행
+    setInterval(addRandomApplicant, 2000);
+  </script>
+</body>
+</html>
